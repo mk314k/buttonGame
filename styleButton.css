@@ -1,0 +1,27 @@
+body{
+    background-color: #e0e0e0;
+    align-items: center;
+}
+canvas {
+    border: 1px solid black;
+    height: 100%;
+    width: 100%;
+}
+.gameContainer{
+    height: calc(min(80vh,80vw));
+    width: calc(min(80vh,80vw));
+    align-items: center;
+    margin-left: calc(50vw - min(80vh,80vw)/2);
+    margin-top: 5vh;
+}
+#root {
+    position: absolute;
+    inset: auto calc(50vw - min(80vh,80vw)/2) 93.5vh auto;
+}
+p{
+    font-size: 2vh;
+}
+.rules{
+    position: absolute;
+    inset: auto calc(50vw - min(80vh,80vw)/2) auto auto;
+}
