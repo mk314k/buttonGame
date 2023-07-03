@@ -60,7 +60,41 @@ class Button{
     contains(xy){
         return (Math.abs(xy.x-this.center().x)<=BUTTON_WIDTH/2 && Math.abs(xy.y-this.center().y)<=BUTTON_HEIGHT/2);
     }
-    draw(canvas){
+    draw(canvas) {
+        const context = canvas.getContext('2d');
+        context.save();
+      
+        // Define the button styles
+        const buttonColor = this.getColr();
+        const buttonBorderWidth = 2;
+        const buttonBorderColor = '#333';
+        const buttonCornerRadius = 8;
+      
+        // Draw the button background with rounded corners
+        context.fillStyle = buttonColor;
+        context.beginPath();
+        context.moveTo(this.leftTop.x + buttonCornerRadius, this.leftTop.y);
+        context.lineTo(this.leftTop.x + BUTTON_WIDTH - buttonCornerRadius, this.leftTop.y);
+        context.quadraticCurveTo(this.leftTop.x + BUTTON_WIDTH, this.leftTop.y, this.leftTop.x + BUTTON_WIDTH, this.leftTop.y + buttonCornerRadius);
+        context.lineTo(this.leftTop.x + BUTTON_WIDTH, this.leftTop.y + BUTTON_HEIGHT - buttonCornerRadius);
+        context.quadraticCurveTo(this.leftTop.x + BUTTON_WIDTH, this.leftTop.y + BUTTON_HEIGHT, this.leftTop.x + BUTTON_WIDTH - buttonCornerRadius, this.leftTop.y + BUTTON_HEIGHT);
+        context.lineTo(this.leftTop.x + buttonCornerRadius, this.leftTop.y + BUTTON_HEIGHT);
+        context.quadraticCurveTo(this.leftTop.x, this.leftTop.y + BUTTON_HEIGHT, this.leftTop.x, this.leftTop.y + BUTTON_HEIGHT - buttonCornerRadius);
+        context.lineTo(this.leftTop.x, this.leftTop.y + buttonCornerRadius);
+        context.quadraticCurveTo(this.leftTop.x, this.leftTop.y, this.leftTop.x + buttonCornerRadius, this.leftTop.y);
+        context.closePath();
+        context.fill();
+      
+        // Draw the button border
+        context.lineWidth = buttonBorderWidth;
+        context.strokeStyle = buttonBorderColor;
+        context.stroke();
+      
+        context.restore();
+      }
+      
+      
+    drawRect(canvas){
         const context = canvas.getContext('2d');
         context.save();
         context.fillStyle = this.getColr();
