@@ -1,27 +1,59 @@
-body{
-    background-color: #e0e0e0;
+:root{
+    --header-height: 8vmin;
+    --footer-height: 7vmin;
+    --main-height: calc(100vh - var(--header-height) - var(--footer-height));
+    --canvas-size: calc(min(80vw, var(--main-height) - 10vmin));
+}
+
+.flex-horizontal{
+    display: flex;
+    justify-content: center;
     align-items: center;
+    flex-direction: row;
+}
+.flex-vertical{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+body{
+    background-color: #f5f5f5;
+}
+header{
+    width: 100vw;
+    height: var(--header-height);
+}
+main{
+    width: 100vw;
+    height: var(--main-height);
+}
+footer{
+    width: 100vw;
+    height: var(--footer-height);
+}
+.header{
+    font-size: 5vmin;
 }
 canvas {
-    border: 1px solid black;
+    border: 3px solid black;
     height: 100%;
     width: 100%;
 }
-.gameContainer{
-    height: calc(min(80vh,80vw));
-    width: calc(min(80vh,80vw));
-    align-items: center;
-    margin-left: calc(50vw - min(80vh,80vw)/2);
-    margin-top: 5vh;
+.canvas-container{
+    height: var(--canvas-size);
+    width: var(--canvas-size);
 }
-#root {
-    position: absolute;
-    inset: auto calc(50vw - min(80vh,80vw)/2) 93.5vh auto;
+#score {
+    height: 3vmin;
+    font-size: 2.5vmin;
+    margin-bottom: 1px;
+    margin-left: 70vw;
 }
 p{
-    font-size: 2vh;
+    font-size: 2vmin;
 }
 .rules{
-    position: absolute;
-    inset: auto calc(50vw - min(80vh,80vw)/2) auto auto;
+    height: 7vmin;
 }

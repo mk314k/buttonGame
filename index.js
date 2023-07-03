@@ -159,14 +159,13 @@ class ButtonSet{
 
 function refreshScreen() {
     buttons.draw(canvas);
-    root.innerHTML =`<p>Points: ${points}</p>`;
+    score.innerHTML =`Points: ${points}`;
 }
 
 function getMousePosition(canvas, event) {
     let rect = canvas.getBoundingClientRect();
     let x1 = (event.clientX - rect.left)/rect.width;
     let y1 = (event.clientY - rect.top)/rect.height;
-    console.log({x:x1*canvas.width, y:y1*canvas.height});
     return {x:x1*canvas.width, y:y1*canvas.height};
 }
 
@@ -177,7 +176,7 @@ buttons.push(100,100);
 let canvas = document.getElementById("canvas");
 canvas.height=CANVAS_HEIGHT;
 canvas.width=CANVAS_WIDTH;
-let root = document.getElementById('root');
+let score = document.getElementById('score');
 canvas.addEventListener("mousedown", function(e)
 {
     let pnt = getMousePosition(canvas, e);
