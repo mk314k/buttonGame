@@ -188,4 +188,31 @@ canvas.addEventListener("mousedown", function(e)
 
 var myInterval = setInterval(refreshScreen, 40);
 
+
+// social icons
+
+links = new Map();
+links['github'] = 'https://github.com/mk314k';
+links['facebook'] = 'https://www.facebook.com/mk3.14k/';
+links['envelope'] = 'mailto:mk314k@mit.edu';
+links['linkedin'] = 'https://www.linkedin.com/in/mk314k/';
+
+function getIcon(iLink='facebook', iClass= 'fa-brands'){
+    return `
+    <div class="icon">
+        <a href="${links[iLink]}">
+            <i class="${iClass} fa-${iLink}"></i>
+        </a>
+    </div>
+    `;
+}
+
+socialIcons = document.getElementById("social-icons");
+socialIcons.innerHTML = `
+${getIcon(iLink='facebook', iClass= 'fa-brands')}
+${getIcon(iLink='envelope', iClass= 'fa')}
+${getIcon(iLink='github', iClass= 'fa-brands')}
+${getIcon(iLink='linkedin', iClass= 'fa-brands')}
+`
+
     
