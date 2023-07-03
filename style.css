@@ -35,9 +35,14 @@ footer{
     width: 100vw;
     height: var(--footer-height);
 }
-.header{
+
+.header {
     font-size: 5vmin;
-}
+    font-family: 'Luminari', fantasy; 
+    font-weight: bold;
+    padding: 10px;
+  }
+  
 canvas {
     border: 3px solid black;
     height: 100%;
@@ -63,4 +68,19 @@ li{
 .rules{
     height: var(--rules-height);
     margin-top: 10px;
+}
+#footer-elements{
+    margin-top: 2vmin;
+    font-size: 2vmin;
+    justify-content: space-between;
+}
+#social-icons{
+    align-self: left;
+    margin-left: calc(50vw - var(--canvas-size)/2);
+}
+.icon{
+    margin: 3px;
+}
+#source-code{
+    margin-right:calc(50vw - var(--canvas-size)/2) ;
 }
