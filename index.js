@@ -159,14 +159,13 @@ class ButtonSet{
 
 function refreshScreen() {
     buttons.draw(canvas);
-    root.innerHTML =`<p>Points: ${points}</p>`;
+    score.innerHTML =`Points: ${points}`;
 }
 
 function getMousePosition(canvas, event) {
     let rect = canvas.getBoundingClientRect();
     let x1 = (event.clientX - rect.left)/rect.width;
     let y1 = (event.clientY - rect.top)/rect.height;
-    console.log({x:x1*canvas.width, y:y1*canvas.height});
     return {x:x1*canvas.width, y:y1*canvas.height};
 }
 
@@ -177,7 +176,7 @@ buttons.push(100,100);
 let canvas = document.getElementById("canvas");
 canvas.height=CANVAS_HEIGHT;
 canvas.width=CANVAS_WIDTH;
-let root = document.getElementById('root');
+let score = document.getElementById('score');
 canvas.addEventListener("mousedown", function(e)
 {
     let pnt = getMousePosition(canvas, e);
@@ -188,5 +187,32 @@ canvas.addEventListener("mousedown", function(e)
 
 
 var myInterval = setInterval(refreshScreen, 40);
+
+
+// social icons
+
+links = new Map();
+links['github'] = 'https://github.com/mk314k';
+links['facebook'] = 'https://www.facebook.com/mk3.14k/';
+links['envelope'] = 'mailto:mk314k@mit.edu';
+links['linkedin'] = 'https://www.linkedin.com/in/mk314k/';
+
+function getIcon(iLink='facebook', iClass= 'fa-brands'){
+    return `
+    <div class="icon">
+        <a href="${links[iLink]}">
+            <i class="${iClass} fa-${iLink}"></i>
+        </a>
+    </div>
+    `;
+}
+
+socialIcons = document.getElementById("social-icons");
+socialIcons.innerHTML = `
+${getIcon(iLink='facebook', iClass= 'fa-brands')}
+${getIcon(iLink='envelope', iClass= 'fa')}
+${getIcon(iLink='github', iClass= 'fa-brands')}
+${getIcon(iLink='linkedin', iClass= 'fa-brands')}
+`
 
     
