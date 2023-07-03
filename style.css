@@ -2,7 +2,9 @@
     --header-height: 8vmin;
     --footer-height: 7vmin;
     --main-height: calc(100vh - var(--header-height) - var(--footer-height));
-    --canvas-size: calc(min(80vw, var(--main-height) - 10vmin));
+    --rules-height: 9vmin;
+    --score-height: 3vmin;
+    --canvas-size: calc(min(80vw, var(--main-height) - var(--rules-height) - var(--score-height)));
 }
 
 .flex-horizontal{
@@ -46,14 +48,19 @@ canvas {
     width: var(--canvas-size);
 }
 #score {
-    height: 3vmin;
+    height: var(--score-height);
     font-size: 2.5vmin;
+    align-self: end;
     margin-bottom: 1px;
-    margin-left: 70vw;
+    margin-right: calc(50vw - var(--canvas-size)/2);
 }
-p{
+ul{
+    margin: 0;
+}
+li{
     font-size: 2vmin;
 }
 .rules{
-    height: 7vmin;
+    height: var(--rules-height);
+    margin-top: 10px;
 }
