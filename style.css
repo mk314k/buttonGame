@@ -57,7 +57,6 @@ canvas {
     font-size: 2.5vmin;
     align-self: end;
     margin-bottom: 1px;
-    margin-right: calc(50vw - var(--canvas-size)/2);
 }
 ul{
     margin: 0;
