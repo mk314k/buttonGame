@@ -1,4 +1,4 @@
-
+import { COLORS, vel, speed, CANVAS_HEIGHT, CANVAS_WIDTH, BUTTON_WIDTH, BUTTON_HEIGHT } from "./utility.js";
 
 
 export default class Button{
