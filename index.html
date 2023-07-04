@@ -1,42 +1,57 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Page title -->
         <title>Button</title>
+        
+        <!-- Meta tags -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- External CSS -->
         <link rel="stylesheet" href="style.css">
+        
+        <!-- Font Awesome library for icons -->
         <script src="https://kit.fontawesome.com/7ca2746f93.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <header>
+            <!-- Header section -->
             <div class="header flex-horizontal">
                 Button Collision
             </div>
         </header>
         <main class="flex-vertical">
+            <!-- Main content section -->
             <div id="root" class="flex-vertical">
                 <div id="score"></div>
                 <div class="canvas-container flex-vertical">
+                    <!-- Canvas for the game -->
                     <canvas id="canvas"></canvas>
                 </div>
                 <div class="rules">
+                    <!-- Game rules section -->
                     <ul>
                       <li>Click the magic button to earn 5 points for each click.</li>
-                      <li>On Blue, the magic button bursts in to two magic buttons.</li>
-                      <li>On Red, the button becomes neutralizer, i.e. disappear another button on collision.</li>
-                      <li>On Green, the button becomes static, protects magic buttons from the neutralizers.</li>
+                      <li>On Blue, the magic button bursts into two magic buttons.</li>
+                      <li>On Red, the button becomes a neutralizer, i.e., it disappears another button on collision.</li>
+                      <li>On Green, the button becomes static and protects magic buttons from the neutralizers.</li>
                     </ul>
                 </div>                  
             </div>
         </main>
         <footer>
+            <!-- Footer section -->
             <div class="flex-horizontal" id="footer-elements">
                 <div class="flex-horizontal" id ="social-icons"></div>
                 <div id="source-code">
+                    <!-- Source code link -->
                     See Source Code on <a href="https://github.com/mk314k/buttonGame">Github</a>
                 </div>
             </div>
         </footer>
         
+        <!-- Game script -->
         <script type="module" src="game.js"></script>
     </body>
 </html>
+
