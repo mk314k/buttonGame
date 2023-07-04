@@ -14,9 +14,9 @@ class ButtonGame{
         this.#buttons = [];
         this.#canvas = canvas;
         this.#scoreElement = document.getElementById("score");
-        this.updateScore();
+        this.#updateScore();
     }
-    updateScore(){
+    #updateScore(){
         this.#scoreElement.innerHTML = `Points: ${this.#score}`;
     }
     handleClick(event){
@@ -25,6 +25,12 @@ class ButtonGame{
         let y1 = CANVAS_HEIGHT * (event.clientY - rect.top) / rect.height;
         if (this.#buttons.length==0){
             this.#push({x:x1, y:y1}, {x:this.#speed, y:this.#speed});
+            if (x1 < CANVAS_WIDTH/2){
+                this.#buttons[0].velocity.x *=-1;
+            }
+            if (y1 > CANVAS_HEIGHT/2){
+                this.#buttons[0].velocity.y *=-1;
+            }
         }else{
             this.#hit({x:x1, y:y1});
         }
@@ -75,7 +81,10 @@ class ButtonGame{
                 }
                 if (result.scoreUpdate){
                     this.#score += 5;
-                    this.updateScore();
+                    this.#speed = 2 + (
+                        8*0.0069 * this.#score/(1 + 0.0069 * this.#score)
+                    );
+                    this.#updateScore();
                 }
                 break;
             }
