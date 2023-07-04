@@ -1,4 +1,5 @@
-import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./utility.js";
+import Button from "./Button.js";
+import { CANVAS_HEIGHT, CANVAS_WIDTH, BUTTON_HEIGHT, BUTTON_WIDTH, COLORS } from "./utility.js";
 
 class ButtonGame{
     #score;
@@ -18,16 +19,16 @@ class ButtonGame{
     }
     handleClick(event){
         let rect = this.#canvas.getBoundingClientRect();
-        let x1 = (event.clientX - rect.left)/rect.width;
-        let y1 = (event.clientY - rect.top)/rect.height;
-        console.log(`x1: ${x1}  y1 ${y1}`);
-        return {x:x1*CANVAS_WIDTH, y:y1*CANVAS_HEIGHT};
+        let x1 = CANVAS_WIDTH * (event.clientX - rect.left) / rect.width;
+        let y1 = CANVAS_HEIGHT * (event.clientY - rect.top) / rect.height;
+        if (this.#buttons.length==0){
+            this.#push(x1,y1)
+        }else{
+            this.#hit({x:x1, y:y1})
+        }
     }
-    pushButton(btn){
-        this.buttons.push(btn);
-    }
-    push(x,y){
-        this.buttons.push(new Button(x,y));
+    #push(x,y){
+        this.#buttons.push(new Button(x,y));
     }
     redrawCanvas(){
         if (this.#buttons.length>0){
@@ -38,16 +39,17 @@ class ButtonGame{
                     let dist = this.#buttons[i].distanceNorm(this.#buttons[j]);
                     if (Math.abs(dist.x)<=1 && Math.abs(dist.y)<=1){
                         if (
-                            (this.#buttons[i].colr==COLORS[0] && this.#buttons[j].colr==COLORS[2]) ||
-                            (this.#buttons[j].colr==COLORS[0] && this.#buttons[i].colr==COLORS[2]) ||
-                            (this.#buttons[i].colr==COLORS[1] && this.#buttons[j].colr==COLORS[2]) ||
-                            (this.#buttons[i].colr==COLORS[2] && this.#buttons[j].colr==COLORS[1])
+                            // Neutralizer
+                            (this.#buttons[i].color==COLORS[0] && this.#buttons[j].color==COLORS[2]) ||
+                            (this.#buttons[j].color==COLORS[0] && this.#buttons[i].color==COLORS[2]) ||
+                            (this.#buttons[i].color==COLORS[1] && this.#buttons[j].color==COLORS[2]) ||
+                            (this.#buttons[i].color==COLORS[2] && this.#buttons[j].color==COLORS[1])
                         ){
                             this.#buttons.splice(j,1);
                             this.#buttons.splice(i,1);
                         }else{
-                            this.#buttons[j].moveDirec = {x:-1*dist.x,y:-1*dist.y};
-                            this.#buttons[i].moveDirec = {x:dist.x,y:dist.y};
+                            this.#buttons[j].velocity = {x:-1*dist.x,y:-1*dist.y};
+                            this.#buttons[i].velocity = {x:dist.x,y:dist.y};
                         }
                     }
                 }
@@ -58,13 +60,12 @@ class ButtonGame{
             }
         }
     }
-    #hit(pnt){
+    #hit(point){
         for (let button of this.#buttons){
-            if (button.contains(pnt)){
-                if (button.hit()){
-                    button.leftTop.x -=BUTTON_WIDTH/2;
-                    button.leftTop.y-=BUTTON_HEIGHT/2;
-                    this.push(button.center().x,button.center().y);
+            if (button.contains(point)){
+                if (button.magicHit()){
+                    this.#push(button.center().x,button.center().y);
+                    this.#score +=5; 
                 }
                 break;
             }
