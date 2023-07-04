@@ -12,12 +12,6 @@ export default class Button{
         this.#color = COLORS[0];
         this.#pos = {x:pos.x, y:pos.y}; // Left Top Position
         this.velocity = {x:vel.x, y:vel.y};
-        // if (this.#pos.x < CANVAS_WIDTH/2){
-        //     this.velocity.x *=-1;
-        // }
-        // if (this.#pos.y < CANVAS_HEIGHT/2){
-        //     this.velocity.y *=-1;
-        // }
         const d = new Date();
         this.initialTime = d.getTime();
     }
@@ -38,9 +32,9 @@ export default class Button{
         }
         return this.#color;
     }
-    move(){
-        let newX = this.#pos.x + this.velocity.x;
-        let newY = this.#pos.y + this.velocity.y;
+    move(vel = this.velocity){
+        let newX = this.#pos.x + vel.x;
+        let newY = this.#pos.y + vel.y;
         if (newX<0 || newX>=CANVAS_WIDTH-BUTTON_WIDTH){
             this.velocity.x*=-1;
         }else{
@@ -72,8 +66,10 @@ export default class Button{
             score = true;
         }
         if (this.#color === COLORS[0]){
-            this.#pos.x -= BUTTON_WIDTH / 2;
-            this.#pos.y -= BUTTON_HEIGHT / 2;
+            this.move({
+                x: -BUTTON_WIDTH / 2,
+                y: -BUTTON_HEIGHT / 2
+            });
             burst = true;
         }
         return {scoreUpdate:score, burst:burst};

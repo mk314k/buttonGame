@@ -14,9 +14,9 @@ class ButtonGame{
         this.#buttons = [];
         this.#canvas = canvas;
         this.#scoreElement = document.getElementById("score");
-        this.updateScore();
+        this.#updateScore();
     }
-    updateScore(){
+    #updateScore(){
         this.#scoreElement.innerHTML = `Points: ${this.#score}`;
     }
     handleClick(event){
@@ -24,28 +24,41 @@ class ButtonGame{
         let x1 = CANVAS_WIDTH * (event.clientX - rect.left) / rect.width;
         let y1 = CANVAS_HEIGHT * (event.clientY - rect.top) / rect.height;
         if (this.#buttons.length==0){
-            this.#push({x:x1, y:y1}, {x:this.#speed, y:this.#speed})
+            this.#push({x:x1, y:y1}, {x:this.#speed, y:this.#speed});
+            if (x1 < CANVAS_WIDTH/2){
+                this.#buttons[0].velocity.x *=-1;
+            }
+            if (y1 > CANVAS_HEIGHT/2){
+                this.#buttons[0].velocity.y *=-1;
+            }
         }else{
-            this.#hit({x:x1, y:y1})
+            this.#hit({x:x1, y:y1});
         }
     }
     #push(point, velocity){
         this.#buttons.push(new Button(point, velocity));
     }
     redrawCanvas(){
+        // does not have to draw anything if there are no buttons
         if (this.#buttons.length>0){
             const context = this.#canvas.getContext('2d');
             context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
             for (let i=0; i<this.#buttons.length; i++){
                 for (let j=i+1; j<this.#buttons.length; j++){
                     let dist = this.#buttons[i].distNeutralized(this.#buttons[j]);
-                    if (Math.abs(dist.x)<=1 && Math.abs(dist.y)<=1){
+                    if (Math.abs(dist.distX)<=1 && Math.abs(dist.distY)<=1){
                         if (dist.neutralized){
                             this.#buttons.splice(j,1);
                             this.#buttons.splice(i,1);
                         }else{
-                            this.#buttons[j].velocity = {x:-1*this.#speed*dist.distX,y:-1*this.#speed*dist.distY};
-                            this.#buttons[i].velocity = {x:this.#speed*dist.distX,y:this.#speed*dist.distY};
+                            this.#buttons[j].velocity = {
+                                x:-1*this.#speed*dist.distX, 
+                                y:-1*this.#speed*dist.distY
+                            };
+                            this.#buttons[i].velocity = {
+                                x:this.#speed*dist.distX, 
+                                y:this.#speed*dist.distY
+                            };
                         }
                     }
                 }
@@ -60,7 +73,6 @@ class ButtonGame{
         for (let button of this.#buttons){
             if (button.contains(point)){
                 let result = button.magicHit();
-                console.log(result);
                 if (result.burst){
                     this.#push(
                         {x:button.center().x,y:button.center().y},
@@ -69,7 +81,10 @@ class ButtonGame{
                 }
                 if (result.scoreUpdate){
                     this.#score += 5;
-                    this.updateScore();
+                    this.#speed = 2 + (
+                        8*0.0069 * this.#score/(1 + 0.0069 * this.#score)
+                    );
+                    this.#updateScore();
                 }
                 break;
             }
