@@ -1,21 +1,23 @@
-import { COLORS, vel, speed, CANVAS_HEIGHT, CANVAS_WIDTH, BUTTON_WIDTH, BUTTON_HEIGHT } from "./utility.js";
+import { COLORS, CANVAS_HEIGHT, CANVAS_WIDTH} from "./utility.js";
 
-const BUTTON_INITIAL_VELOCITY = 1;
+const BUTTON_INITIAL_VELOCITY = 8;
+const BUTTON_HEIGHT =40;
+const BUTTON_WIDTH =80;
 
 export default class Button{
     #color;
     #pos;
 
-    constructor(leftX, leftY){
+    constructor(pos, vel){
         this.#color = COLORS[0];
-        this.#pos = {x:leftX, y:leftY}; // Left Top Position
-        this.velocity = {x:BUTTON_INITIAL_VELOCITY, y:BUTTON_INITIAL_VELOCITY};
-        if (this.#pos.x < CANVAS_WIDTH/2){
-            this.velocity.x *=-1;
-        }
-        if (this.#pos.y < CANVAS_HEIGHT/2){
-            this.velocity.y *=-1;
-        }
+        this.#pos = {x:pos.x, y:pos.y}; // Left Top Position
+        this.velocity = {x:vel.x, y:vel.y};
+        // if (this.#pos.x < CANVAS_WIDTH/2){
+        //     this.velocity.x *=-1;
+        // }
+        // if (this.#pos.y < CANVAS_HEIGHT/2){
+        //     this.velocity.y *=-1;
+        // }
         const d = new Date();
         this.initialTime = d.getTime();
     }
@@ -50,31 +52,43 @@ export default class Button{
             this.#pos.y=newY;
         }
     }
-    distanceNorm(button){
+
+    distNeutralized(button){
         return {
-            x:(this.center().x - button.center().x) / BUTTON_WIDTH, 
-            y:(this.center().y - button.center().y) / BUTTON_HEIGHT
+            distX:(this.center().x - button.center().x) / BUTTON_WIDTH, 
+            distY:(this.center().y - button.center().y) / BUTTON_HEIGHT,
+            neutralized: (this.#color==COLORS[0] && button.#color==COLORS[2]) ||
+                        (this.#color==COLORS[2] && button.#color==COLORS[0]) ||
+                        (this.#color==COLORS[1] && button.#color==COLORS[2]) ||
+                        (this.#color==COLORS[2] && button.#color==COLORS[1])
         };
     }
 
     magicHit(){
+        let score = false;
+        let burst = false;
         if (this.#color===COLORS[0]){
+            this.#color = this.color;
+            score = true;
+        }
+        if (this.#color === COLORS[0]){
             this.#pos.x -= BUTTON_WIDTH / 2;
             this.#pos.y -= BUTTON_HEIGHT / 2;
-            this.#color = this.color;
+            burst = true;
         }
-        return (this.#color === COLORS[0]);
+        return {scoreUpdate:score, burst:burst};
     }
+
     contains(point){
         return (
             Math.abs(point.x - this.center().x) <= BUTTON_WIDTH / 2 && 
             Math.abs(point.y - this.center().y) <= BUTTON_HEIGHT / 2
         );
     }
+
     draw(canvas) {
         const context = canvas.getContext('2d');
         context.save();
-      
         // Define the button styles
         const buttonColor = this.color;
         const buttonBorderWidth = 2;
