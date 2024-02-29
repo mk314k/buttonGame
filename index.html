@@ -1,57 +1,73 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <!-- Page title -->
-        <title>Button</title>
-        
-        <!-- Meta tags -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <!-- External CSS -->
-        <link rel="stylesheet" href="style.css">
-        
-        <!-- Font Awesome library for icons -->
-        <script src="https://kit.fontawesome.com/7ca2746f93.js" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <header>
-            <!-- Header section -->
-            <div class="header flex-horizontal">
-                Button Collision
-            </div>
-        </header>
-        <main class="flex-vertical">
-            <!-- Main content section -->
-            <div id="root" class="flex-vertical">
-                <div id="score"></div>
-                <div class="canvas-container flex-vertical">
-                    <!-- Canvas for the game -->
-                    <canvas id="canvas"></canvas>
-                </div>
-                <div class="rules">
-                    <!-- Game rules section -->
-                    <ul>
-                      <li>Click the magic button to earn 5 points for each click.</li>
-                      <li>On Blue, the magic button bursts into two magic buttons.</li>
-                      <li>On Red, the button becomes a neutralizer, i.e., it disappears another button on collision.</li>
-                      <li>On Green, the button becomes static and protects magic buttons from the neutralizers.</li>
-                    </ul>
-                </div>                  
-            </div>
-        </main>
-        <footer>
-            <!-- Footer section -->
-            <div class="flex-horizontal" id="footer-elements">
-                <div class="flex-horizontal" id ="social-icons"></div>
-                <div id="source-code">
-                    <!-- Source code link -->
-                    See Source Code on <a href="https://github.com/mk314k/buttonGame">Github</a>
-                </div>
-            </div>
-        </footer>
-        
-        <!-- Game script -->
-        <script type="module" src="game.js"></script>
-    </body>
-</html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Button Collision — Tactile Arcade Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css?v=3" />
+    <script src="https://kit.fontawesome.com/7ca2746f93.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <header class="flex-horizontal">
+      <div class="header-bar flex-horizontal">
+        <div class="header">Button Collision</div>
+        <button id="resetBtn" class="reset-btn" type="button">New Round</button>
+      </div>
+    </header>
 
+    <main class="flex-vertical">
+      <div id="root" class="flex-vertical">
+        <!-- Tactile Game Scoreboard -->
+        <div class="hud-bar flex-horizontal">
+          <div class="hud-stat">
+            <span class="hud-label">SCORE</span>
+            <span class="hud-val amber" id="score">0</span>
+          </div>
+          <div class="hud-stat">
+            <span class="hud-label">BEST</span>
+            <span class="hud-val amber" id="bestScore">0</span>
+          </div>
+          <div class="hud-stat">
+            <span class="hud-label">★ MAGIC</span>
+            <span class="hud-val sky" id="magicCount">0</span>
+          </div>
+          <div class="hud-stat">
+            <span class="hud-label">PACE</span>
+            <span class="hud-val mint" id="speedMult">1.0x</span>
+          </div>
+        </div>
+
+        <!-- Game Arena Board -->
+        <div class="canvas-container flex-vertical">
+          <canvas id="canvas"></canvas>
+        </div>
+
+        <!-- Game Legend -->
+        <div class="rules">
+          <ul>
+            <li><span class="badge badge-blue">★ SPLIT</span> Tap Magic tile on <strong>Sky Blue</strong> (+5 pts) to split it into two Magic tiles!</li>
+            <li><span class="badge badge-green">SHIELD</span> Tap on <strong>Mint Green</strong> (+5 pts) to lock a Shield that pops Hazards (+10 bonus!).</li>
+            <li><span class="badge badge-red">HAZARD</span> Tapping on <strong>Coral Red</strong> (+5 pts) locks a Hazard that pops Magic tiles on contact.</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="flex-horizontal" id="footer-elements">
+        <div class="flex-horizontal" id="social-icons"></div>
+        <div id="source-code">
+          See Source Code on <a href="https://github.com/mk314k/buttonGame" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="game.js?v=3"></script>
+  </body>
+</html>
