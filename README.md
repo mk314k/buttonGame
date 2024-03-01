@@ -1,46 +1,28 @@
-# Button Game
+# Button Collision
 
-This repository contains a simple button game implemented using HTML, CSS, and JavaScript. The game involves clicking on color-changing buttons to earn points while following certain rules.
+**Button Collision** is an ultra-lightweight, zero-dependency HTML5 Canvas chain-reaction arcade game written in vanilla JavaScript.
 
-## Game Play
+**[Play Live on GitHub Pages](https://mk314k.github.io/buttonGame/)**
 
-- Color-changing (magic) buttons that award 5 points on each click.
-- Blue buttons (magic) that add an additional button to the game.
-- Red buttons that act as Neutralizer and disappear with another button.
-- Green buttons that turn into static buttons and shield magic buttons.
+![Gameplay Preview](display.gif)
 
-## Instructions
+## Gameplay & Rules
 
-To get a local copy of the project up and running, follow these steps:
+1. **Start**: Tap anywhere on the board to launch your first **★ Magic Tile**.
+2. **Phase Cycling**: Every Magic Tile cycles through **Sky Blue $\rightarrow$ Mint Green $\rightarrow$ Coral Red** with a live countdown bar along its bottom edge:
+   - **`★ SPLIT` (Tap on Sky Blue, `+5 pts`)**: The Magic Tile splits into **two** cycling Magic Tiles moving in opposite directions!
+   - **`SHIELD` (Tap on Mint Green, `+5 pts`)**: Locks permanently into a **Mint Shield** that bounces Magic Tiles safely and pops Coral Hazards for a **`+10 Shield Save!`** bonus.
+   - **`HAZARD` (Tap on Coral Red, `+5 pts`)**: Locks permanently into a **Coral Hazard** that pops any Magic Tile it collides with.
+3. **Scaling Pace & Round Over**: Board velocity scales smoothly with your score. The round ends when **0 Magic Tiles** remain on the board.
 
-1. Clone this repository: `git clone https://github.com/your-username/buttonGame.git`
-2. Navigate to the project directory: `cd buttonGame`
-3. Open the `index.html` file in a web browser.
-4. Click on the color-changing buttons to earn points.
-5. Follow the rules described in the game to maximize your score.
+## Running Locally
 
-## Technologies Used
-
-- HTML
-- CSS
-- JavaScript
-
-## Preview
-
-![Gameplay Preview](assets/display.gif)
+```bash
+git clone https://github.com/mk314k/buttonGame.git
+cd buttonGame
+npx serve .
+```
 
 ## License
 
 MIT License
-
-## Contributing
-
-Contributions are welcome! If you have suggestions for improvements or encounter any issues, please feel free to open an issue or submit a pull request.
-
-## Contact
-
-If you have any questions or want to reach out, you can contact me at:
-
-- Email: https://mailto:mk314k@mit.edu
-- GitHub: https://github.com/mk314k
-
